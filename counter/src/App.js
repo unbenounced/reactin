@@ -3,21 +3,29 @@ import { useState } from "react";
 
 export default function App() {
   const [step, setStep] = useState(1);
+  const [counter, setCounter] = useState(1);
 
-  function minus() {
+  function minusStep() {
     setStep((s) => s - 1);
   }
 
+  function plusStep() {
+    setStep((s) => s + 1);
+  }
+
+  function minusCounter() {
+    setCounter((s) => s - step);
+  }
   return (
     <div className="App">
       <div>
-        <button onClick={minus}>-</button>
+        <button onClick={minusStep}>-</button>
         <span>Step: {step}</span>
-        <button>+</button>
+        <button onClick={plusStep}>+</button>
       </div>
       <div>
-        <button>-</button>
-        <span>1</span>
+        <button onClick={minusCounter}>-</button>
+        <span>Counter: {counter}</span>
         <button>+</button>
       </div>
       <div>
