@@ -3,10 +3,12 @@ import { useState } from "react";
 
 export default function App() {
   const [step, setStep] = useState(1);
-  const [counter, setCounter] = useState(1);
+  const [counter, setCounter] = useState(0);
+
+  const today = new Date();
 
   function minusStep() {
-    setStep((s) => s - 1);
+    if (step > 0) setStep((s) => s - 1);
   }
 
   function plusStep() {
@@ -16,6 +18,11 @@ export default function App() {
   function minusCounter() {
     setCounter((s) => s - step);
   }
+
+  function plusCounter() {
+    setCounter((s) => s + step);
+  }
+
   return (
     <div className="App">
       <div>
@@ -26,10 +33,13 @@ export default function App() {
       <div>
         <button onClick={minusCounter}>-</button>
         <span>Counter: {counter}</span>
-        <button>+</button>
+        <button onClick={plusCounter}>+</button>
       </div>
       <div>
-        <p>days from today is Wed Jul 21 2027</p>
+        <p>
+          {counter} {counter === 1 ? "day" : "days"} from today is{" "}
+          {today.setDate(today + counter)}
+        </p>
       </div>
     </div>
   );
