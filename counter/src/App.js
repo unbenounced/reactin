@@ -6,6 +6,7 @@ export default function App() {
   const [counter, setCounter] = useState(0);
 
   const today = new Date();
+  const newDate = new Date(today);
 
   function minusStep() {
     if (step > 0) setStep((s) => s - 1);
@@ -17,11 +18,17 @@ export default function App() {
 
   function minusCounter() {
     setCounter((s) => s - step);
+    const newDate = new Date(today);
+    newDate.setDate(today.getDate() - step);
   }
 
   function plusCounter() {
     setCounter((s) => s + step);
   }
+
+  const final = new Date(
+    newDate.setDate(today.getDate() + counter)
+  ).toDateString();
 
   return (
     <div className="App">
@@ -37,8 +44,7 @@ export default function App() {
       </div>
       <div>
         <p>
-          {counter} {counter === 1 ? "day" : "days"} from today is{" "}
-          {today.setDate(today + counter)}
+          {counter} {counter === 1 ? "day" : "days"} from today is {final}
         </p>
       </div>
     </div>
