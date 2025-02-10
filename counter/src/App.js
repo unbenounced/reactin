@@ -2,51 +2,44 @@ import "./index.css";
 import { useState } from "react";
 
 export default function App() {
-  const [step, setStep] = useState(1);
-  const [counter, setCounter] = useState(0);
-
-  const today = new Date();
-  const newDate = new Date(today);
-
-  function minusStep() {
-    if (step > 0) setStep((s) => s - 1);
-  }
-
-  function plusStep() {
-    setStep((s) => s + 1);
-  }
-
-  function minusCounter() {
-    setCounter((s) => s - step);
-    const newDate = new Date(today);
-    newDate.setDate(today.getDate() - step);
-  }
-
-  function plusCounter() {
-    setCounter((s) => s + step);
-  }
-
-  const final = new Date(
-    newDate.setDate(today.getDate() + counter)
-  ).toDateString();
-
   return (
     <div className="App">
+      <Counter />
+    </div>
+  );
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
+
+  const date = new Date("june 21 2027");
+  date.setDate(date.getDate() + count);
+
+  return (
+    <div>
       <div>
-        <button onClick={minusStep}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={plusStep}>+</button>
+        <button onClick={() => setStep((c) => c - 1)}>-</button>
+        <span>Count: {step}</span>
+        <button onClick={() => setStep((c) => c + 1)}>+</button>
       </div>
+
       <div>
-        <button onClick={minusCounter}>-</button>
-        <span>Counter: {counter}</span>
-        <button onClick={plusCounter}>+</button>
+        <button onClick={() => setCount((c) => c - step)}>-</button>
+        <span>Count: {count}</span>
+        <button onClick={() => setCount((c) => c + step)}>+</button>
       </div>
-      <div>
-        <p>
-          {counter} {counter === 1 ? "day" : "days"} from today is {final}
-        </p>
-      </div>
+
+      <p>
+        <span>
+          {count === 0
+            ? "Today is"
+            : count > 0
+            ? `${count} dates from today is`
+            : `${Math.abs(count)} days ago was `}
+        </span>
+        <span>{date.toDateString()}</span>
+      </p>
     </div>
   );
 }
